@@ -64,7 +64,7 @@ public class ImgHandler {
                             pointList.add(new Point(prei,prej));//把第一个点丢进去先
                         }
                         flag=false;
-                        if(Math.abs(j-prej)<=Integer.MAX_VALUE){
+                        if(Math.abs(j-prej)<=Integer.MAX_VALUE){//如果这个点是无效点就跳过，是有效点就丢到绘制列表里去
                             pointList.add(new Point(i,j));
                             prej=j;
                         }
@@ -101,10 +101,12 @@ public class ImgHandler {
         }
     }
 
+    //一个rgb值，按照RGB的顺序每两位存一个值
     public static int getBlue(int x){
         return x& 0xff;
     }
 
+    //给两个点，返回连线的路径
     public static List<Point> getRoute(Point aa, Point bb){
         Point a = new Point(aa);
         Point b = new Point(bb);
@@ -124,6 +126,7 @@ public class ImgHandler {
             d[7] = getDistance(new Point(x+1,y+1),b);
 
             double m = Collections.min(Arrays.asList(d));
+            //有可能两个点是相邻的，可以直接返回了
             if(m==0) return pointList;
             int k = 0;
             for (int i = 0; i < d.length; i++) {
@@ -149,6 +152,7 @@ public class ImgHandler {
 
     }
 
+    //算几何距离
     public static double getDistance(Point a, Point b){
         double x = a.getX()-b.getX();
         double y = a.getY()-b.getY();
@@ -158,6 +162,6 @@ public class ImgHandler {
 
     public static void main(String [] args){
         ImgHandler imgHandler = new ImgHandler();
-        imgHandler.solve("panorama.jpg");
+        imgHandler.solve("zgc.jpg");
     }
 }
